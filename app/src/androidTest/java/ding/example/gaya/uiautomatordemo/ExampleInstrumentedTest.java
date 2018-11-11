@@ -141,4 +141,21 @@ public class ExampleInstrumentedTest {
             Log.e("visitor_delete", e.getMessage());
         }
     }
+    @Test
+    public void share_one(){
+
+    }
+
+    @Test
+    public void share_two(){
+
+    }
+    @Test
+    public void share_three(){
+
+    }
+    @Test
+    public void share_four(){
+
+    }
 }
