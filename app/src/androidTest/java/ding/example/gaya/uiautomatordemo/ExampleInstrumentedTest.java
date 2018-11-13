@@ -1,4 +1,4 @@
-package test.com.example.administrator.test;
+package ding.example.gaya.uiautomatordemo;
 
 import android.content.Context;
 import android.content.Intent;
@@ -121,6 +121,7 @@ public class ExampleInstrumentedTest {
             manage.click();
             UiObject dele = null;
 //            UiObject dele = mDevice.findObject(new UiSelector().resourceId("com.bianla.app:id/delete").instance(0));
+            int i = 0;
             try {
                 do {
 
@@ -128,7 +129,8 @@ public class ExampleInstrumentedTest {
                     dele.click();
                     UiObject dele_confirm = mDevice.findObject(new UiSelector().text("删除"));
                     dele_confirm.click();
-                } while (dele.isEnabled());
+                    i+=1;
+                } while (i<2);
             } catch (UiObjectNotFoundException e) {
                 Log.e("dele_confirm", e.getMessage());
 //                Log.i("dele_confirm", String.valueOf(dele.isEnabled()));
