@@ -14,8 +14,10 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
 
@@ -27,6 +29,7 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ExampleInstrumentedTest {
     private static final String BASIC_SAMPLE_PACKAGE
             = "com.bianla.app";
@@ -73,7 +76,7 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void visitor_add() {
+    public void visitor_01_add() {
         // Context of the app under test.
         //添加访客女
         try {
@@ -111,31 +114,62 @@ public class ExampleInstrumentedTest {
         }
 
     }
+    @Test
+    public void visitor_02_check(){
+        String title_text = "";
+        try{
+            UiObject fmale = mDevice.findObject(new UiSelector().text("auto访客女"));
+            UiObject male = mDevice.findObject(new UiSelector().text("auto访客男"));
+            fmale.click();
+            UiObject balance = mDevice.findObject(new UiSelector().text("上 秤"));
+            balance.click();
+            try{
+                UiObject blue = mDevice.findObject(new UiSelector().resourceId("android:id/button1"));
+                blue.click();
+             }catch(UiObjectNotFoundException e){
+                Log.e("visitor_check_blue", e.getMessage());
+            }
+            UiObject title = mDevice.findObject(new UiSelector().resourceId("com.bianla.app:id/dialog_title_tv"));
+            title_text = title.getText();
+            UiObject back = mDevice.findObject(new UiSelector().resourceId("com.bianla.app:id/close"));
+            back.click();
+            UiObject back_homepage = mDevice.findObject(new UiSelector().resourceId("com.bianla.app:id/title_left_bt"));
+            back_homepage.click();
+        }catch(UiObjectNotFoundException e){
+            Log.e("visitor_check", e.getMessage());
+        }
+
+        assertEquals("同步数据",title_text);
+}
 
     @Test
-    public void visitor_delete() {
+    public void visitor_03_delete() {
         try {
-            UiObject famle = mDevice.findObject(new UiSelector().text("auto访客女"));
-            UiObject male = mDevice.findObject(new UiSelector().text("auto访客男"));
+
             UiObject manage = mDevice.findObject(new UiSelector().resourceId("com.bianla.app:id/text"));
             manage.click();
-            UiObject dele = null;
+            UiObject dele1 = null;
+            UiObject dele2 = null;
 //            UiObject dele = mDevice.findObject(new UiSelector().resourceId("com.bianla.app:id/delete").instance(0));
             int i = 0;
             try {
                 do {
 
-                    dele = mDevice.findObject(new UiSelector().resourceId("com.bianla.app:id/delete").instance(0));
-                    dele.click();
-                    UiObject dele_confirm = mDevice.findObject(new UiSelector().text("删除"));
+                    dele1 = mDevice.findObject(new UiSelector().resourceId("com.bianla.app:id/select_user_cb").instance(0));
+                    dele2 = mDevice.findObject(new UiSelector().resourceId("com.bianla.app:id/select_user_cb").instance(1));
+                    dele1.click();
+                    dele2.click();
+                    UiObject dele_radio = mDevice.findObject(new UiSelector().resourceId("com.bianla.app:id/delete_select_tv"));
+                    dele_radio.click();
+                    UiObject dele_confirm = mDevice.findObject(new UiSelector().text("确定"));
                     dele_confirm.click();
                     i+=1;
-                } while (i<2);
+                } while (i<1);
             } catch (UiObjectNotFoundException e) {
                 Log.e("dele_confirm", e.getMessage());
 //                Log.i("dele_confirm", String.valueOf(dele.isEnabled()));
             }
-            UiObject manage_close = mDevice.findObject(new UiSelector().text("确定"));
+            UiObject manage_close = mDevice.findObject(new UiSelector().resourceId("com.bianla.app:id/text"));
             manage_close.click();
             UiObject back_homepage = mDevice.findObject(new UiSelector().resourceId("com.bianla.app:id/title_left_bt"));
             back_homepage.click();
@@ -144,20 +178,20 @@ public class ExampleInstrumentedTest {
         }
     }
     @Test
-    public void share_one(){
+    public void share_01(){
 
     }
 
     @Test
-    public void share_two(){
+    public void share_02(){
 
     }
     @Test
-    public void share_three(){
+    public void share_03(){
 
     }
     @Test
-    public void share_four(){
+    public void share_04(){
 
     }
 }
